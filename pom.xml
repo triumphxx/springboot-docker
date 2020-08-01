@@ -43,6 +43,36 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.2.2</version>
+                <executions>
+                    <execution>
+                        <id>build-image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!--配置镜像的名称-->
+                    <imageName>springboot-docker/springboot-docker:1.0</imageName>
+                    <!--指定Dockerfile路径-->
+                    <dockerDirectory>${project.basedir}</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <!--项目编译路径-->
+                            <targetPath>/</targetPath>
+                            <!--项目编译路径-->
+                            <directory>${project.build.directory}</directory>
+                            <!--项目的可执行jar的名称-->
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
